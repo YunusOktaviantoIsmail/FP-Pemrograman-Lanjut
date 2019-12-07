@@ -126,7 +126,7 @@ void id(int i){
 		printf("===== DATA TIDAK DITEMUKAN =====\n\n");
     } else {
     	printf("===== DATA DITEMUKAN =====\n");
-		printf("ID Pasien 		: %d\n", data[hasil-1].id_pasien);
+		printf("ID Pasien 	: %d\n", data[hasil-1].id_pasien);
 		printf("Nama Pasien 	: %s\n", data[hasil-1].nama_pasien);
 		printf("Jenis Penyakit 	: %s\n", data[hasil-1].jenis_penyakit);
 		printf("Jenis Kamar 	: %s\n", data[hasil-1].kamar.jenis_kamar);
@@ -138,21 +138,40 @@ void kamar(int i){
 	int cari_kamar, hasil;
 	
 	printf("Masukan Nomor Kamar yang Dicari : ");
-	scanf("%d", cari_kamar);
-	
-	hasil = binary_id(i, 0, i, cari_kamar);
+	scanf("%d", &cari_kamar);
+			
+	hasil = binary_kamar(i, 0, i, cari_kamar);
 		
 	if  (hasil == -1){
 		printf("===== DATA TIDAK DITEMUKAN =====\n\n");
     } else {
     	printf("===== DATA DITEMUKAN =====\n");
-		printf("ID Pasien 		: %d\n", data[hasil-1].id_pasien);
+		printf("ID Pasien 	: %d\n", data[hasil-1].id_pasien);
 		printf("Nama Pasien 	: %s\n", data[hasil-1].nama_pasien);
 		printf("Jenis Penyakit 	: %s\n", data[hasil-1].jenis_penyakit);
 		printf("Jenis Kamar 	: %s\n", data[hasil-1].kamar.jenis_kamar);
 		printf("Nomor Kamar 	: %d\n\n", data[hasil-1].kamar.nomor_kamar);
     }
 }
+
+//void nama(int i){
+//	printf("Masukan Nama Pasien yang Dicari : "); fflush(stdin);
+//	gets(cari_nama);
+//		
+//	hasil = binary_nama(i, 0, i, cari_nama);
+//		
+//	if  (hasil == -1){
+//		printf("===== DATA TIDAK DITEMUKAN =====\n\n");
+//    } else {
+//    	printf("%d", hasil);
+//    	printf("===== DATA DITEMUKAN =====\n");
+//		printf("ID Pasien 		: %d\n", data[hasil-1].id_pasien);
+//		printf("Nama Pasien 	: %s\n", data[hasil-1].nama_pasien);
+//		printf("Jenis Penyakit 	: %s\n", data[hasil-1].jenis_penyakit);
+//		printf("Jenis Kamar 	: %s\n", data[hasil-1].kamar.jenis_kamar);
+//		printf("Nomor Kamar 	: %d\n\n", data[hasil-1].kamar.nomor_kamar);
+//    }
+//}
 
 void sub_cari(int i){
 	int cari, k;
@@ -169,22 +188,7 @@ void sub_cari(int i){
 	if(cari == 1){
 		id(i);
 	} else if(cari == 2){
-//		printf("Masukan Nama Pasien yang Dicari : "); fflush(stdin);
-//		gets(cari_nama);
-//		
-//		hasil = binary_nama(i, 0, i, cari_nama);
-//		
-//		if  (hasil == -1){
-//			printf("===== DATA TIDAK DITEMUKAN =====\n\n");
-//    	} else {
-//    		printf("%d", hasil);
-//    		printf("===== DATA DITEMUKAN =====\n");
-//			printf("ID Pasien 		: %d\n", data[hasil-1].id_pasien);
-//			printf("Nama Pasien 	: %s\n", data[hasil-1].nama_pasien);
-//			printf("Jenis Penyakit 	: %s\n", data[hasil-1].jenis_penyakit);
-//			printf("Jenis Kamar 	: %s\n", data[hasil-1].kamar.jenis_kamar);
-//			printf("Nomor Kamar 	: %d\n\n", data[hasil-1].kamar.nomor_kamar);
-//    	}	
+		//nama(i);	
 	} else if(cari == 3){
 		kamar(i);
 	}
@@ -206,7 +210,7 @@ void menu_utama(){
 		if(pilih == 1){
 			system("cls");
 			input(i);
-			i+=1;
+			i++;
 			system("cls");
 		} else if(pilih == 2){
 			system("cls");
