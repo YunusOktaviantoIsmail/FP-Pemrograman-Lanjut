@@ -5,6 +5,13 @@
 //Kamar pasien
 struct kamar 
 {
+	/*
+        Jenis Kamar : 
+            1.VIP
+            2.III
+            3.II
+            4.I
+    */
 	int jenis_kamar;
 	int nomor_kamar;
 };
@@ -13,7 +20,7 @@ struct kamar
 struct masuk 
 {
 	int tanggal;
-	int bulan;
+	char bulan[10];
 	int tahun;
 };
 
@@ -23,6 +30,8 @@ struct pasien
 	int id_pasien;
 	char nama_pasien[50];
 	int jenis_penyakit;
+	struct kamar kamar;
+	struct masuk tanggal_masuk;
     /*
         Jenis Penyakit : 
             1. Demam Berdarah
