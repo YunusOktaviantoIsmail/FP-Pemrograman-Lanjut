@@ -80,5 +80,25 @@ void main() {
 			*/
 			data_sekarang = data_sekarang + 1;
 		}
+		else if(pilih == 2)
+		{
+			
+		}
+		else if(pilih == 3)
+		{
+
+		}
+		else if(pilih == 4)
+		{
+			
+		}
+		else if(pilih == 5)
+		{
+
+		}
+		else if(pilih == 6)
+		{
+			
+		}
 	}
 }
