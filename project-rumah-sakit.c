@@ -587,17 +587,70 @@ void sort_no_kamar(int low, int high)
     }
 };
 
-//--------------------------------------- SUB MENU SORT DATA ---------------------------------------//
+//--------------------------------------- MERGE SORT TANGGAL MASUK PASIEN ---------------------------------------//
+void merging_tanggal_masuk(int low, int mid, int high)
+{
+    int i = low;
+    int j = mid + 1;
+    int k = low;
 
+	struct pasien temp[high+1];
+	
+    while(i<=mid && j<= high)
+    {
+        if(data_pasien[i].tanggal_masuk.tanggal < data_pasien[j].tanggal_masuk.tanggal)
+        {
+        	temp[k++] = data_pasien[i++];
+        }
+        else
+        {
+        	temp[k++] = data_pasien[j++];
+        }
+    }
+
+    while(i<= mid)
+    {
+    		temp[k++] = data_pasien[i++];
+    }
+
+    while(j<= high)
+    {
+            temp[k++] = data_pasien[j++];
+    }
+
+    for(i = low; i <= high; i++)
+    {
+    	data_pasien[i] = temp[i];
+    }
+}
+
+void sort_tanggal_masuk(int low, int high)
+{
+	int mid;
+    
+    if(low < high) {
+        mid = (low + high) / 2;
+        sort_tanggal_masuk(low, mid);
+        sort_tanggal_masuk(mid+1, high);
+
+        merging_tanggal_masuk(low, mid, high);
+    } else { 
+        return;
+    }
+};
+
+
+//--------------------------------------- SUB MENU SORT DATA ---------------------------------------//
 void sub_sort(){
 	int pilihan;
 
 	printf("Urutkan Data Berdasarkan : \n");
 	printf("1. ID Pasien\n");
 	printf("2. Nama Pasien\n");
-	printf("3. Jenis Penyakit\n");
-	printf("4. Jenis Kamar\n");
-	printf("5. Nomor Kamar\n");
+	printf("3. Jenis Penyakit Pasien\n");
+	printf("4. Jenis Kamar Pasien\n");
+	printf("5. Nomor Kamar Pasien\n");
+	printf("6. Tanggal Masuk Pasien \n");
 	printf("Masukan Pilihan Anda : ");
 	scanf("%d", &pilihan);
 	fflush(stdin);
@@ -621,6 +674,10 @@ void sub_sort(){
 	else if(pilihan == 5)
 	{
 		sort_no_kamar(0, data_sekarang-1);	
+	}
+	else if(pilihan == 6)
+	{
+		sort_tanggal_masuk(0, data_sekarang-1);
 	}
 	else
 	{
