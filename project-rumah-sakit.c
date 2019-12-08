@@ -39,7 +39,7 @@ struct pasien
             3. Lain-lain
     */
 }; 
-struct pasien data_pasien[3];
+struct pasien data_pasien[50];
 int data_sekarang = 0;
 
 //--------------------------------------- INPUT DATA ---------------------------------------//
@@ -483,11 +483,114 @@ void sort_jenis_penyakit(int low, int high)
     }
 };
 
+//--------------------------------------- MERGE SORT JENIS KAMAR PASIEN ---------------------------------------//
+void merging_jenis_kamar(int low, int mid, int high)
+{
+    int i = low;
+    int j = mid + 1;
+    int k = low;
+
+	struct pasien temp[high+1];
+	
+    while(i<=mid && j<= high)
+    {
+        if(strcmp(data_pasien[i].kamar.jenis_kamar, data_pasien[j].kamar.jenis_kamar) <= 0)
+        {
+            temp[k++] = data_pasien[i++];
+        }
+        else if(strcmp(data_pasien[i].kamar.jenis_kamar, data_pasien[j].kamar.jenis_kamar) >= 0)
+        {
+        	temp[k++] = data_pasien[j++];
+        }
+    }
+
+    while(i<= mid)
+    {
+    		temp[k++] = data_pasien[i++];
+    }
+
+    while(j<= high)
+    {
+            temp[k++] = data_pasien[j++];
+    }
+
+    for(i = low; i <= high; i++)
+    {
+    	data_pasien[i] = temp[i];
+    }
+}
+
+void sort_jenis_kamar(int low, int high)
+{
+	int mid;
+    
+    if(low < high) {
+        mid = (low + high) / 2;
+        sort_jenis_kamar(low, mid);
+        sort_jenis_kamar(mid+1, high);
+
+        merging_jenis_kamar(low, mid, high);
+    } else { 
+        return;
+    }
+};
+
+//--------------------------------------- MERGE SORT NOMOR KAMAR PASIEN ---------------------------------------//
+void merging_no_kamar(int low, int mid, int high)
+{
+    int i = low;
+    int j = mid + 1;
+    int k = low;
+
+	struct pasien temp[high+1];
+	
+    while(i<=mid && j<= high)
+    {
+        if(data_pasien[i].kamar.nomor_kamar < data_pasien[j].kamar.nomor_kamar)
+        {
+        	temp[k++] = data_pasien[i++];
+        }
+        else
+        {
+        	temp[k++] = data_pasien[j++];
+        }
+    }
+
+    while(i<= mid)
+    {
+    		temp[k++] = data_pasien[i++];
+    }
+
+    while(j<= high)
+    {
+            temp[k++] = data_pasien[j++];
+    }
+
+    for(i = low; i <= high; i++)
+    {
+    	data_pasien[i] = temp[i];
+    }
+}
+
+void sort_no_kamar(int low, int high)
+{
+	int mid;
+    
+    if(low < high) {
+        mid = (low + high) / 2;
+        sort_no_kamar(low, mid);
+        sort_no_kamar(mid+1, high);
+
+        merging_no_kamar(low, mid, high);
+    } else { 
+        return;
+    }
+};
+
 //--------------------------------------- SUB MENU SORT DATA ---------------------------------------//
 
 void sub_sort(){
 	int pilihan;
-	int banyak_data = sizeof(data_pasien) / sizeof(data_pasien[0]);
 
 	printf("Urutkan Data Berdasarkan : \n");
 	printf("1. ID Pasien\n");
@@ -501,23 +604,23 @@ void sub_sort(){
 
 	if(pilihan == 1)
 	{
-		sort_id(0, banyak_data-1);
+		sort_id(0, data_sekarang-1);
 	}
 	else if(pilihan == 2)
 	{
-		sort_nama(0, banyak_data-1);
+		sort_nama(0, data_sekarang-1);
 	}
 	else if(pilihan == 3)
 	{
-		sort_jenis_penyakit(0, banyak_data-1);
+		sort_jenis_penyakit(0, data_sekarang-1);
 	}
 	else if(pilihan == 4)
 	{
-
+		sort_jenis_kamar(0, data_sekarang-1);
 	}
 	else if(pilihan == 5)
 	{
-
+		sort_no_kamar(0, data_sekarang-1);	
 	}
 	else
 	{
