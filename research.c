@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-int data[] = {4,7,1,2,9,5,11,21,15,10,3,42,12,53,20,18,60,1};
-
 //Kamar pasien
 struct kamar 
 {
@@ -95,11 +93,11 @@ void merging_nama(struct rumah_sakit data_sakit[], int low, int mid, int high)
 	
     while(i<=mid && j<= high)
     {
-        if(strcmp(data_sakit[i].pasien.nama_pasien, data_sakit[j].pasien.nama_pasien) < 0)
+        if(strcmp(data_sakit[i].pasien.nama_pasien, data_sakit[j].pasien.nama_pasien) <= 0)
         {
         	temp3[k++] = data_sakit[i++];
         }
-        else if(strcmp(data_sakit[i].pasien.nama_pasien, data_sakit[j].pasien.nama_pasien) > 0)
+        else if(strcmp(data_sakit[i].pasien.nama_pasien, data_sakit[j].pasien.nama_pasien) >= 0)
         {
         	temp3[k++] = data_sakit[j++];
         }
@@ -159,7 +157,7 @@ void main()
     int a,b;
 
     data_sakit[0].pasien.id_pasien = 3;
-    strcpy(data_sakit[0].pasien.nama_pasien, "Rehan");
+    strcpy(data_sakit[0].pasien.nama_pasien, "Yunus");
     data_sakit[0].pasien.jenis_penyakit = 1;
     data_sakit[0].kamar.jenis_kamar = 1;
     data_sakit[0].kamar.nomor_kamar = 21;
@@ -168,7 +166,7 @@ void main()
     data_sakit[0].masuk.tahun = 1999;
 
     data_sakit[1].pasien.id_pasien = 1;
-    strcpy(data_sakit[1].pasien.nama_pasien, "Yunus Maol");
+    strcpy(data_sakit[1].pasien.nama_pasien, "Rehan");
     data_sakit[1].pasien.jenis_penyakit = 2;
     data_sakit[1].kamar.jenis_kamar = 2;
     data_sakit[1].kamar.nomor_kamar = 22;
@@ -177,7 +175,7 @@ void main()
     data_sakit[1].masuk.tahun = 1999;
 
     data_sakit[2].pasien.id_pasien = 3;
-    strcpy(data_sakit[2].pasien.nama_pasien, "Yunus Mail");
+    strcpy(data_sakit[2].pasien.nama_pasien, "Yunus");
     data_sakit[2].pasien.jenis_penyakit = 3;
     data_sakit[2].kamar.jenis_kamar = 3;
     data_sakit[2].kamar.nomor_kamar = 23;
