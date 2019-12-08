@@ -23,7 +23,7 @@ struct masuk
 	int tanggal;
 	int bulan;
 	int tahun;
-};typedef masuk;
+};
 
 //Data pasien
 struct pasien 
@@ -37,8 +37,7 @@ struct pasien
             2. Kecelakaan
             3. Lain-lain
     */
-};typedef pasien;
-
+};
 //Data seluruh struct menjadi satu kesatuan
 struct rumah_sakit
 {
@@ -46,7 +45,8 @@ struct rumah_sakit
     struct masuk masuk;
     struct kamar kamar;
 };
-typedef rumah_sakit;
+
+///////////////////////////////////////////////////////////////////
 
 merging_id(struct rumah_sakit data_sakit[], int low, int mid, int high)
 {
@@ -55,32 +55,44 @@ merging_id(struct rumah_sakit data_sakit[], int low, int mid, int high)
     int k = low;
 
     int temp[high+1];
-
+    char temp2[high+1][50];
+	struct rumah_sakit temp3[high+1];
+	
     while(i<=mid && j<= high)
     {
         if(data_sakit[i].pasien.id_pasien < data_sakit[j].pasien.id_pasien)
         {
-            temp[k++] = data_sakit[i++].pasien.id_pasien;
+        	temp3[k++] = data_sakit[i++];
+//            temp[k++] = data_sakit[i++].pasien.id_pasien;
+//            strcpy(temp2[k++], data_sakit[i++].pasien.nama_pasien);
         }
         else
         {
-            temp[k++] = data_sakit[j++].pasien.id_pasien;
+        	temp3[k++] = data_sakit[j++];
+//            temp[k++] = data_sakit[j++].pasien.id_pasien;
+//            strcpy(temp2[k++], data_sakit[j++].pasien.nama_pasien);
         }
     }
 
     while(i<= mid)
     {
-        temp[k++] = data_sakit[i++].pasien.id_pasien;
+    		temp3[k++] = data_sakit[i++];
+//        temp[k++] = data_sakit[i++].pasien.id_pasien;
+//        strcpy(temp2[k++], data_sakit[i++].pasien.nama_pasien);
     }
 
     while(j<= high)
     {
-        temp[k++] = data_sakit[j++].pasien.id_pasien;
+    		temp3[k++] = data_sakit[j++];
+//        temp[k++] = data_sakit[j++].pasien.id_pasien;
+//        strcpy(temp2[k++], data_sakit[j++].pasien.nama_pasien);
     }
 
     for(i = low; i <= high; i++)
     {
-        data_sakit[i].pasien.id_pasien = temp[i];
+    	data_sakit[i] = temp3[i];
+//        data_sakit[i].pasien.id_pasien = temp[i];
+//        strcpy(data_sakit[i].pasien.nama_pasien, temp2[i]);
     }
 
 }
@@ -99,6 +111,7 @@ sort_id(struct rumah_sakit data_sakit[], int low, int high)
         return;
     }   
 }
+/////////////////////////////////////////////////////////////////
 
 main()
 {
@@ -146,5 +159,9 @@ main()
 
     printf("Data setelah Merge sort :  \n");
     for(a = 0; a < banyak_data; a++)
-        printf("[%d] ", data_sakit[a].pasien.id_pasien);
+    {
+        printf("[%d]\n", data_sakit[a].pasien.id_pasien);
+        printf("[%s]\n", data_sakit[a].pasien.nama_pasien);
+    }
+
 }

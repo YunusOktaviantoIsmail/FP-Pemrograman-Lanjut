@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct kamar {
 	char jenis_kamar[10];
@@ -21,7 +22,7 @@ struct pasien {
 };
 typedef struct pasien data_pasien;
 
-data_pasien data[5];
+data_pasien data[3];
 
 int i=0;
 
@@ -231,39 +232,61 @@ void sub_cari(int i){
 	}
 }
 
+/*
+	FORMAT DATA
+		struct kamar {
+			char jenis_kamar[10];
+			int nomor_kamar;
+		};
+
+		struct masuk {
+			int tanggal;
+			char bulan[10];
+			int tahun;
+		};
+
+		struct pasien {
+			int id_pasien;
+			char nama_pasien[50];
+			char jenis_penyakit[20];
+			struct kamar kamar;
+			struct masuk tanggal_masuk;
+		};
+*/
+
 merging_id(int low, int mid, int high)
 {
     int i = low;
     int j = mid + 1;
     int k = low;
 
-    int temp[high+1];
+    struct pasien temp[high+1];
 
     while(i<=mid && j<= high)
     {
         if(data[i].id_pasien < data[j].id_pasien)
         {
-            temp[k++] = data[i++].id_pasien;
+            temp[k++] = data[i++];
         }
         else
         {
-            temp[k++] = data[j++].id_pasien;
+            temp[k++] = data[j++];
         }
     }
 
     while(i<= mid)
     {
-        temp[k++] = data[i++].id_pasien;
+        temp[k++] = data[i++];
     }
 
     while(j<= high)
     {
-        temp[k++] = data[j++].id_pasien;
+        temp[k++] = data[j++];
     }
 
     for(i = low; i <= high; i++)
     {
-        data[i].id_pasien = temp[i];
+        data[i] = temp[i];
     }
 }
 
