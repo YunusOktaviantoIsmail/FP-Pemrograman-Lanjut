@@ -38,62 +38,77 @@ struct pasien
             2. Kecelakaan
             3. Lain-lain
     */
-}; struct pasien data_pasien[5];
+}; 
+struct pasien data_pasien[3];
+int data_sekarang = 0;
 
 //--------------------------------------- INPUT DATA ---------------------------------------//
 
-void input(int data_sekarang) {	
-	printf("Masukan Nama Pasien 		: ");
-	scanf("%s", &data_pasien[data_sekarang].nama_pasien);
+void input() {
+	int input_nomor_kamar,input_tanggal, input_tahun;
+	char input_nama[50];
+	char input_jenis_penyakit[50];
+	char input_jenis_kamar[10];
+	char input_bulan[10];
+	
+	printf("Masukan Nama Pasien 			: ");
+	gets(input_nama);
+	strcpy(data_pasien[data_sekarang].nama_pasien, input_nama);
 	fflush(stdin); 
 	
 	printf("Masukan Jenis Penyakit Pasien 	: ");
-	scanf("%s", &data_pasien[data_sekarang].jenis_penyakit); 
+	gets(input_jenis_penyakit);
+	strcpy(data_pasien[data_sekarang].jenis_penyakit, input_jenis_penyakit);
 	fflush(stdin);
 
-	printf("Masukan Jenis Kamar 		: ");
-	scanf("%s", &data_pasien[data_sekarang].kamar.jenis_kamar);
+	printf("Masukan Jenis Kamar 			: ");
+	gets(input_jenis_kamar);
+	strcpy(data_pasien[data_sekarang].kamar.jenis_kamar, input_jenis_kamar);
 	fflush(stdin);
 
-	printf("Masukan Nomor Kamar 		: ");
+	printf("Masukan Nomor Kamar 			: ");
 	scanf("%d", &data_pasien[data_sekarang].kamar.nomor_kamar);
 	fflush(stdin);
 
-	printf("Masukan Tanggal 		: ");
+	printf("Masukan Tanggal 				: ");
 	scanf("%d", &data_pasien[data_sekarang].tanggal_masuk.tanggal);
 	fflush(stdin);
 
-	printf("Masukan Nama Bulan 		: ");
-	scanf("%s", &data_pasien[data_sekarang].tanggal_masuk.bulan);
+	printf("Masukan Nama Bulan 				: ");
+	gets(input_bulan);
+	strcpy(data_pasien[data_sekarang].tanggal_masuk.bulan, input_bulan);
 	fflush(stdin);
 
-	printf("Masukan Tahun 			: ");
+	printf("Masukan Tahun 					: ");
 	scanf("%d", &data_pasien[data_sekarang].tanggal_masuk.tahun);
 	fflush(stdin);
 }
 
 //--------------------------------------- PENENTUAN ID ---------------------------------------//
 
-int tentukan_id(int data_sekarang){
+int tentukan_id(){
 	printf("Masukan ID Pasien 		: "); fflush(stdin);
 	scanf("%d", &data_pasien[data_sekarang].id_pasien);
+	fflush(stdin);
 	
 	if(data_pasien[data_sekarang].id_pasien == data_pasien[data_sekarang-1].id_pasien){
 		printf("\n===== ID SUDAH DIGUNAKAN =====\n");
 		system("pause");
 		system("cls");
 	} else {
-		printf("\nID Pasien 			: %d\n", data_pasien[data_sekarang].id_pasien);
+		printf("\n");
+		printf("ID Pasien 			: %d\n", data_pasien[data_sekarang].id_pasien);
 		input(data_sekarang);
 	}
 }
 
 //--------------------------------------- VIEW DATA ---------------------------------------//
 
-void view(int data_sekarang){
+void view(){
+	fflush(stdin);
 	int i;
 	for(i=0; i<data_sekarang; i++){
-		printf("ID Pasien 	: %d\n", data_pasien[i].id_pasien);
+		printf("ID Pasien 		: %d\n", data_pasien[i].id_pasien);
 		printf("Nama Pasien 	: %s\n", data_pasien[i].nama_pasien);
 		printf("Jenis Penyakit 	: %s\n", data_pasien[i].jenis_penyakit);
 		printf("Jenis Kamar 	: %s\n", data_pasien[i].kamar.jenis_kamar);
@@ -120,9 +135,13 @@ int binary_id_update(struct pasien data_pasien[], int awal, int akhir, int id_up
 
 //--------------------------------------- UPDATE DATA ---------------------------------------//
 
-void update(int data_sekarang){	
-	int id_update, hasil;
-	
+void update(){
+	int id_update, i, hasil;
+	char input_nama[50];
+	char input_jenis_penyakit[50];
+	char input_jenis_kamar[10];
+	char input_bulan[10];
+
 	printf("Masukan ID Pasien yang Diupdate : ");
 	scanf("%d", &id_update);
 	fflush(stdin);
@@ -214,7 +233,7 @@ char binary_nama(struct pasien data_pasien[], int awal, int akhir, char cari_nam
 
 //--------------------------------------- TAMPILAN INPUTAN SEARCH ID ---------------------------------------//
 
-void id(int data_sekarang){
+void id(){
 	int cari_pasien, hasil;
 	
 	printf("Masukan ID Pasien yang Dicari : ");
@@ -238,7 +257,7 @@ void id(int data_sekarang){
 
 //--------------------------------------- TAMPILAN INPUTAN SEARCH NOMOR KAMAR ---------------------------------------//
 
-void kamar(int data_sekarang){
+void kamar(){
 	int cari_kamar, hasil;
 	
 	printf("Masukan Nomor Kamar yang Dicari : ");
@@ -262,7 +281,7 @@ void kamar(int data_sekarang){
 
 //--------------------------------------- TAMPILAN INPUTAN SEARCH NAMA PASIEN ---------------------------------------//
 
-void nama(int data_sekarang){
+void nama(){
 	char cari_nama[20];
 	int hasil;
 	
@@ -288,7 +307,7 @@ void nama(int data_sekarang){
 
 //--------------------------------------- SUB MENU CARI DATA ---------------------------------------//
 
-void sub_cari(int data_sekarang){
+void sub_cari(){
 	int cari;
 	
 	printf("Cari Data Berdasarkan : \n");
@@ -360,6 +379,110 @@ void sort_id(int low, int high)
     }
 };
 
+//--------------------------------------- MERGE SORT NAMA PASIEN ---------------------------------------//
+void merging_nama(int low, int mid, int high)
+{
+    int i = low;
+    int j = mid + 1;
+    int k = low;
+
+	struct pasien temp[high+1];
+	
+    while(i<=mid && j<= high)
+    {
+        if(strcmp(data_pasien[i].nama_pasien, data_pasien[j].nama_pasien) <= 0)
+        {
+            temp[k++] = data_pasien[i++];
+        }
+        else if(strcmp(data_pasien[i].nama_pasien, data_pasien[j].nama_pasien) >= 0)
+        {
+        	temp[k++] = data_pasien[j++];
+        }
+    }
+
+    while(i<= mid)
+    {
+    		temp[k++] = data_pasien[i++];
+    }
+
+    while(j<= high)
+    {
+            temp[k++] = data_pasien[j++];
+    }
+
+    for(i = low; i <= high; i++)
+    {
+    	data_pasien[i] = temp[i];
+    }
+}
+
+void sort_nama(int low, int high)
+{
+	int mid;
+    
+    if(low < high) {
+        mid = (low + high) / 2;
+        sort_nama(low, mid);
+        sort_nama(mid+1, high);
+
+        merging_nama(low, mid, high);
+    } else { 
+        return;
+    }
+};
+
+//--------------------------------------- MERGE SORT JENIS PENYAKIT PASIEN ---------------------------------------//
+void merging_jenis_penyakit(int low, int mid, int high)
+{
+    int i = low;
+    int j = mid + 1;
+    int k = low;
+
+	struct pasien temp[high+1];
+	
+    while(i<=mid && j<= high)
+    {
+        if(strcmp(data_pasien[i].jenis_penyakit, data_pasien[j].jenis_penyakit) <= 0)
+        {
+            temp[k++] = data_pasien[i++];
+        }
+        else if(strcmp(data_pasien[i].jenis_penyakit, data_pasien[j].jenis_penyakit) >= 0)
+        {
+        	temp[k++] = data_pasien[j++];
+        }
+    }
+
+    while(i<= mid)
+    {
+    		temp[k++] = data_pasien[i++];
+    }
+
+    while(j<= high)
+    {
+            temp[k++] = data_pasien[j++];
+    }
+
+    for(i = low; i <= high; i++)
+    {
+    	data_pasien[i] = temp[i];
+    }
+}
+
+void sort_jenis_penyakit(int low, int high)
+{
+	int mid;
+    
+    if(low < high) {
+        mid = (low + high) / 2;
+        sort_jenis_penyakit(low, mid);
+        sort_jenis_penyakit(mid+1, high);
+
+        merging_jenis_penyakit(low, mid, high);
+    } else { 
+        return;
+    }
+};
+
 //--------------------------------------- SUB MENU SORT DATA ---------------------------------------//
 
 void sub_sort(){
@@ -378,15 +501,15 @@ void sub_sort(){
 
 	if(pilihan == 1)
 	{
-		
+		sort_id(0, banyak_data-1);
 	}
 	else if(pilihan == 2)
 	{
-
+		sort_nama(0, banyak_data-1);
 	}
 	else if(pilihan == 3)
 	{
-
+		sort_jenis_penyakit(0, banyak_data-1);
 	}
 	else if(pilihan == 4)
 	{
@@ -403,13 +526,10 @@ void sub_sort(){
 		printf("Silahkan pilih kembali \n");
 	}
 }
-
-
 //////////////////////////////////////////////////////////
 
 void main() {
 	//Inisialisasi variabel
-	int data_sekarang = 0;
 	int pilih;
 	int loop;
 
@@ -418,12 +538,14 @@ void main() {
 		system("cls");
 		fflush(stdin);
 
+		printf("Data sekarang sebanyak : %d \n", data_sekarang);
 		printf("===== SISTEM INFORMASI RUMAH SAKIT =====\n");
 		printf("1. Daftarkan Pasien\n");
 		printf("2. Lihat Data Pasien\n");
 		printf("3. Update Data Pasien\n");
 		printf("4. Cari Data\n");
 		printf("5. Urutkan Data\n");
+		printf("6. [Keluar Program] \n");
 		printf("Masukan Pilihan Anda : ");
 		scanf("%d", &pilih);
 		fflush(stdin);
@@ -434,35 +556,30 @@ void main() {
 			tentukan_id(data_sekarang);
 			data_sekarang = data_sekarang + 1;
 			system("pause");
-			system("cls");
 		}
 		else if(pilih == 2)
 		{
 			system("cls");
-			view(data_sekarang);
+			view();
 			system("pause");
-			system("cls");
 		}
 		else if(pilih == 3)
 		{
 			system("cls");
-			update(data_sekarang);
+			update();
 			system("pause");
-			system("cls");
 		}
 		else if(pilih == 4)
 		{
 			system("cls");
-			sub_cari(data_sekarang);
+			sub_cari();
 			system("pause");
-			system("cls");
 		}
 		else if(pilih == 5)
 		{
 			system("cls");
 			sub_sort();
 			system("pause");
-			system("cls");
 		}
 		else if(pilih == 6)
 		{
