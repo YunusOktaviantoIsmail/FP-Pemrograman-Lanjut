@@ -43,11 +43,7 @@ struct pasien
 //--------------------------------------- INPUT DATA ---------------------------------------//
 
 void input(int data_sekarang) {	
-	printf("Masukan ID Pasien 				: ");
-	scanf("%d", &data_pasien[data_sekarang].id_pasien);
-	fflush(stdin);
-	
-	printf("Masukan Nama Pasien 			: ");
+	printf("Masukan Nama Pasien 		: ");
 	scanf("%s", &data_pasien[data_sekarang].nama_pasien);
 	fflush(stdin); 
 	
@@ -55,25 +51,41 @@ void input(int data_sekarang) {
 	scanf("%s", &data_pasien[data_sekarang].jenis_penyakit); 
 	fflush(stdin);
 
-	printf("Masukan Jenis Kamar 			: ");
+	printf("Masukan Jenis Kamar 		: ");
 	scanf("%s", &data_pasien[data_sekarang].kamar.jenis_kamar);
 	fflush(stdin);
 
-	printf("Masukan Nomor Kamar 			: ");
+	printf("Masukan Nomor Kamar 		: ");
 	scanf("%d", &data_pasien[data_sekarang].kamar.nomor_kamar);
 	fflush(stdin);
 
-	printf("Masukan Tanggal 				: ");
+	printf("Masukan Tanggal 		: ");
 	scanf("%d", &data_pasien[data_sekarang].tanggal_masuk.tanggal);
 	fflush(stdin);
 
-	printf("Masukan Nama Bulan 				: ");
+	printf("Masukan Nama Bulan 		: ");
 	scanf("%s", &data_pasien[data_sekarang].tanggal_masuk.bulan);
 	fflush(stdin);
 
-	printf("Masukan Tahun 					: ");
+	printf("Masukan Tahun 			: ");
 	scanf("%d", &data_pasien[data_sekarang].tanggal_masuk.tahun);
 	fflush(stdin);
+}
+
+//--------------------------------------- PENENTUAN ID ---------------------------------------//
+
+int tentukan_id(int data_sekarang){
+	printf("Masukan ID Pasien 		: "); fflush(stdin);
+	scanf("%d", &data_pasien[data_sekarang].id_pasien);
+	
+	if(data_pasien[data_sekarang].id_pasien == data_pasien[data_sekarang-1].id_pasien){
+		printf("\n===== ID SUDAH DIGUNAKAN =====\n");
+		system("pause");
+		system("cls");
+	} else {
+		printf("\nID Pasien 			: %d\n", data_pasien[data_sekarang].id_pasien);
+		input(data_sekarang);
+	}
 }
 
 //--------------------------------------- VIEW DATA ---------------------------------------//
@@ -81,7 +93,7 @@ void input(int data_sekarang) {
 void view(int data_sekarang){
 	int i;
 	for(i=0; i<data_sekarang; i++){
-		printf("ID Pasien 		: %d\n", data_pasien[i].id_pasien);
+		printf("ID Pasien 	: %d\n", data_pasien[i].id_pasien);
 		printf("Nama Pasien 	: %s\n", data_pasien[i].nama_pasien);
 		printf("Jenis Penyakit 	: %s\n", data_pasien[i].jenis_penyakit);
 		printf("Jenis Kamar 	: %s\n", data_pasien[i].kamar.jenis_kamar);
@@ -90,46 +102,65 @@ void view(int data_sekarang){
 	}
 }
 
+//--------------------------------------- BINARY UPDATE DATA ---------------------------------------//
+
+int binary_id_update(struct pasien data_pasien[], int awal, int akhir, int id_update){
+	int tengah = (awal + akhir) / 2;
+	
+	if(awal>akhir){
+		return -1;
+	} else if(data_pasien[tengah].id_pasien == id_update){
+		return tengah+1;
+	} else if(data_pasien[tengah].id_pasien < id_update){
+		return binary_id_update(data_pasien, tengah+1, akhir, id_update);
+	} else {
+		return binary_id_update(data_pasien, awal, tengah-1, id_update);
+	}
+}
+
 //--------------------------------------- UPDATE DATA ---------------------------------------//
 
-void update(int data_sekarang){
-	int id_update, i;
-
-	printf("Masukan ID Pasien : ");
+void update(int data_sekarang){	
+	int id_update, hasil;
+	
+	printf("Masukan ID Pasien yang Diupdate : ");
 	scanf("%d", &id_update);
 	fflush(stdin);
-	
-	for(i=0; i<data_sekarang; i++){
-		if(id_update == data_pasien[i].id_pasien){
-			printf("ID Pasien 						: %d\n", data_pasien[i].id_pasien);
-			printf("Masukan Nama Pasien 			: ");
-			scanf("%s", &data_pasien[i].nama_pasien); 
-			fflush(stdin);
+			
+	hasil = binary_id_update(data_pasien, 0, data_sekarang, id_update);
+		
+	if  (hasil == -1){
+		printf("===== DATA TIDAK DITEMUKAN =====\n\n");
+    } else {
+    	printf("\n========== DATA DITEMUKAN ==========\n");
+		printf("ID Pasien 			: %d\n", data_pasien[hasil-1].id_pasien);
+		printf("Masukan Nama Pasien 		: ");
+		scanf("%s", &data_pasien[hasil-1].nama_pasien);
+		fflush(stdin); 
 
-			printf("Masukan Jenis Penyakit Pasien 	: ");
-			scanf("%s", &data_pasien[i].jenis_penyakit); 
-			fflush(stdin);
+		printf("Masukan Jenis Penyakit Pasien 	: ");
+		scanf("%s", &data_pasien[hasil-1].jenis_penyakit); 
+		fflush(stdin);
 
-			printf("Masukan Jenis Kamar 			: ");
-			scanf("%s", &data_pasien[i].kamar.jenis_kamar);
-			fflush(stdin);
+		printf("Masukan Jenis Kamar 		: ");
+		scanf("%s", &data_pasien[hasil-1].kamar.jenis_kamar);
+		fflush(stdin);
 
-			printf("Masukan Nomor Kamar 			: ");
-			scanf("%d", &data_pasien[i].kamar.nomor_kamar);
-			fflush(stdin);
+		printf("Masukan Nomor Kamar 		: ");
+		scanf("%d", &data_pasien[hasil-1].kamar.nomor_kamar);
+		fflush(stdin);
 
-			printf("Masukan Tanggal 				: ");
-			scanf("%d", &data_pasien[i].tanggal_masuk.tanggal);
-			fflush(stdin);
+		printf("Masukan Tanggal 		: ");
+		scanf("%d", &data_pasien[hasil-1].tanggal_masuk.tanggal);
+		fflush(stdin);
 
-			printf("Masukan Nama Bulan 				: ");
-			scanf("%s", &data_pasien[i].tanggal_masuk.bulan);
-			fflush(stdin);
+		printf("Masukan Nama Bulan 		: ");
+		scanf("%s", &data_pasien[hasil-1].tanggal_masuk.bulan);
+		fflush(stdin);
 
-			printf("Masukan Tahun 					: ");
-			scanf("%d", &data_pasien[i].tanggal_masuk.tahun);
-			fflush(stdin);
-		}
+		printf("Masukan Tahun 			: ");
+		scanf("%d", &data_pasien[hasil-1].tanggal_masuk.tahun);
+		fflush(stdin);
 	}
 }
 
@@ -400,33 +431,38 @@ void main() {
 		if(pilih == 1)
 		{
 			system("cls");
-			input(data_sekarang);
+			tentukan_id(data_sekarang);
 			data_sekarang = data_sekarang + 1;
 			system("pause");
+			system("cls");
 		}
 		else if(pilih == 2)
 		{
 			system("cls");
 			view(data_sekarang);
 			system("pause");
+			system("cls");
 		}
 		else if(pilih == 3)
 		{
 			system("cls");
 			update(data_sekarang);
 			system("pause");
+			system("cls");
 		}
 		else if(pilih == 4)
 		{
 			system("cls");
 			sub_cari(data_sekarang);
 			system("pause");
+			system("cls");
 		}
 		else if(pilih == 5)
 		{
 			system("cls");
 			sub_sort();
 			system("pause");
+			system("cls");
 		}
 		else if(pilih == 6)
 		{
