@@ -21,27 +21,27 @@ struct pasien {
 };
 typedef struct pasien data_pasien;
 
-data_pasien data[50];
+data_pasien data[5];
 
 int i=0;
 
 void input(int i){	
 	printf("Masukan ID Pasien 				: ");
-	scanf("%d", &data[i].id_pasien);
-	printf("Masukan Nama Pasien 			: "); fflush(stdin);
-	gets(data[i].nama_pasien); 
-	printf("Masukan Jenis Penyakit Pasien 	: "); fflush(stdin);
-	gets(data[i].jenis_penyakit); 
+	scanf("%d", &data[i].id_pasien); fflush(stdin);
+	printf("Masukan Nama Pasien 			: "); 
+	gets(data[i].nama_pasien); fflush(stdin);
+	printf("Masukan Jenis Penyakit Pasien 	: "); 
+	gets(data[i].jenis_penyakit); fflush(stdin);
 	printf("Masukan Jenis Kamar 			: ");
-	scanf("%s", &data[i].kamar.jenis_kamar);
+	scanf("%s", &data[i].kamar.jenis_kamar); fflush(stdin);
 	printf("Masukan Nomor Kamar 			: ");
-	scanf("%d", &data[i].kamar.nomor_kamar);
+	scanf("%d", &data[i].kamar.nomor_kamar); fflush(stdin);
 	printf("Masukan Tanggal 				: ");
-	scanf("%d", &data[i].tanggal_masuk.tanggal);
+	scanf("%d", &data[i].tanggal_masuk.tanggal); fflush(stdin);
 	printf("Masukan Nama Bulan 				: ");
-	scanf("%s", &data[i].tanggal_masuk.bulan);
+	scanf("%s", &data[i].tanggal_masuk.bulan); fflush(stdin);
 	printf("Masukan Tahun 					: ");
-	scanf("%d", &data[i].tanggal_masuk.tahun);
+	scanf("%d", &data[i].tanggal_masuk.tahun); fflush(stdin);
 	
 	system("pause");
 }
@@ -61,25 +61,25 @@ void view(int i){
 void update(int i){
 	int id_update, k;
 	printf("Masukan ID Pasien : ");
-	scanf("%d", &id_update);
+	scanf("%d", &id_update); fflush(stdin);
 	
 	for(k=0; k<i; k++){
 		if(id_update == data[k].id_pasien){
 			printf("ID Pasien 						: %d\n", data[k].id_pasien);
-			printf("Masukan Nama Pasien 			: "); fflush(stdin);
-			gets(data[k].nama_pasien); 
-			printf("Masukan Jenis Penyakit Pasien 	: "); fflush(stdin);
-			gets(data[k].jenis_penyakit); 
+			printf("Masukan Nama Pasien 			: "); 
+			gets(data[k].nama_pasien); fflush(stdin);
+			printf("Masukan Jenis Penyakit Pasien 	: "); 
+			gets(data[k].jenis_penyakit); fflush(stdin);
 			printf("Masukan Jenis Kamar 			: ");
-			scanf("%s", &data[k].kamar.jenis_kamar);
+			scanf("%s", &data[k].kamar.jenis_kamar); fflush(stdin);
 			printf("Masukan Nomor Kamar 			: ");
-			scanf("%d", &data[k].kamar.nomor_kamar);
+			scanf("%d", &data[k].kamar.nomor_kamar); fflush(stdin);
 			printf("Masukan Tanggal 				: ");
-			scanf("%d", &data[i].tanggal_masuk.tanggal);
+			scanf("%d", &data[i].tanggal_masuk.tanggal); fflush(stdin);
 			printf("Masukan Nama Bulan 				: ");
-			scanf("%s", &data[i].tanggal_masuk.bulan);
+			scanf("%s", &data[i].tanggal_masuk.bulan); fflush(stdin);
 			printf("Masukan Tahun 					: ");
-			scanf("%d", &data[i].tanggal_masuk.tahun);
+			scanf("%d", &data[i].tanggal_masuk.tahun); fflush(stdin);
 		}
 	}
 }
@@ -150,8 +150,8 @@ char binary_nama(int i, char cari_nama[]){
 void id(int i){
 	int cari_pasien, hasil;
 	
-	printf("Masukan ID Pasien yang Dicari : "); fflush(stdin);
-	scanf("%d", &cari_pasien);
+	printf("Masukan ID Pasien yang Dicari : ");
+	scanf("%d", &cari_pasien); fflush(stdin);
 			
 	hasil = binary_id(i, 0, i, cari_pasien);
 		
@@ -171,7 +171,7 @@ void kamar(int i){
 	int cari_kamar, hasil;
 	
 	printf("Masukan Nomor Kamar yang Dicari : ");
-	scanf("%d", &cari_kamar);
+	scanf("%d", &cari_kamar); fflush(stdin);
 			
 	hasil = binary_kamar(i, 0, i, cari_kamar);
 		
@@ -191,8 +191,8 @@ void nama(int i){
 	char cari_nama[20];
 	int hasil;
 	
-	printf("Masukan Nama yang Dicari : "); fflush(stdin);
-	gets(cari_nama);
+	printf("Masukan Nama yang Dicari : ");
+	gets(cari_nama); fflush(stdin);
 	
 	//hasil = binary_nama(i, 0, i, cari_nama);
 	hasil = binary_nama(i, cari_nama);
@@ -220,7 +220,7 @@ void sub_cari(int i){
 	printf("2. Nama Pasien\n");
 	printf("3. Nomor Kamar\n");
 	printf("Masukan Pilihan Anda : ");
-	scanf("%d", &cari);
+	scanf("%d", &cari);fflush(stdin);
 	
 	if(cari == 1){
 		id(i);
@@ -228,6 +228,125 @@ void sub_cari(int i){
 		nama(i);	
 	} else if(cari == 3){
 		kamar(i);
+	}
+}
+
+merging_id(int low, int mid, int high)
+{
+    int i = low;
+    int j = mid + 1;
+    int k = low;
+
+    int temp[high+1];
+
+    while(i<=mid && j<= high)
+    {
+        if(data[i].id_pasien < data[j].id_pasien)
+        {
+            temp[k++] = data[i++].id_pasien;
+        }
+        else
+        {
+            temp[k++] = data[j++].id_pasien;
+        }
+    }
+
+    while(i<= mid)
+    {
+        temp[k++] = data[i++].id_pasien;
+    }
+
+    while(j<= high)
+    {
+        temp[k++] = data[j++].id_pasien;
+    }
+
+    for(i = low; i <= high; i++)
+    {
+        data[i].id_pasien = temp[i];
+    }
+}
+
+sort_id(int low, int high) 
+{
+    int mid;
+    
+    if(low < high) {
+        mid = (low + high) / 2;
+        sort_id(low, mid);
+        sort_id(mid+1, high);
+
+        merging_id(low, mid, high);
+    } else { 
+        return;
+    }   
+}
+
+void urutkan_id(int i, int banyak_data)
+{
+	int a;
+	for(a = 0; a < banyak_data; a++)
+	{
+		printf("[%d] ", data[a].id_pasien);
+	}
+}
+
+void urutkan_nama(int i);
+void urutkan_penyakit(int i);
+void urutkan_jenis_kamar(int i);
+void urutkan_nomor_kamar(int i);
+
+void urutkan(int i)
+{
+	int low = 0;
+	int banyak_data = sizeof(data) / sizeof(data[0]);
+	int urutkan;
+
+	printf("Urutkan Data berdasarkan : \n");
+	printf("1. ID Pasien \n");
+	printf("2. Nama Pasien \n");
+	printf("3. Jenis Penyakit \n");
+	printf("4. Jenis Kamar \n");
+	printf("5. Nomor Kamar \n");
+	printf("Masukkan pilihan Anda : ");
+	scanf("%d", &urutkan); 
+	fflush(stdin);
+
+	if(urutkan == 1)
+	{
+		system("cls");
+		sort_id(low, banyak_data-1);
+		urutkan_id(i, banyak_data);
+	}
+	else if(urutkan == 2)
+	{
+		system("cls");
+		printf("Nama Pasien \n");
+		// urutkan_nama(i);
+	}
+	else if(urutkan == 3)
+	{
+		system("cls");
+		printf("Penyakit Pasien \n");
+		// urutkan_penyakit(i);
+	}
+	else if(urutkan == 4)
+	{
+		system("cls");
+		printf("Jenis Kamar \n");
+		// urutkan_jenis_kamar(i);
+	}
+	else if(urutkan == 5)
+	{
+		system("cls");
+		printf("Nomor Kamar \n");
+		// urutkan_nomor_kamar(i);
+	}
+	else
+	{
+		system("cls");
+		printf("Pilihan anda tidak valid! \n");
+		printf("Silahkan pilih kembali \n");
 	}
 }
 
@@ -242,7 +361,7 @@ void menu_utama(int i){
 		printf("4. Cari Data\n");
 		printf("5. Urutkan Data\n");
 		printf("Masukan Pilihan Anda : ");
-		scanf("%d", &pilih);
+		scanf("%d", &pilih); fflush(stdin);
 	
 		if(pilih == 1){
 			system("cls");
@@ -262,6 +381,11 @@ void menu_utama(int i){
 		} else if(pilih == 4){
 			system("cls");
 			sub_cari(i);
+			system("pause");
+			system("cls");
+		} else if(pilih == 5){
+			system("cls");
+			urutkan(i);
 			system("pause");
 			system("cls");
 		}
