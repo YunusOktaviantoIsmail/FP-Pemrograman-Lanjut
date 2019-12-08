@@ -95,7 +95,7 @@ void merging_nama(struct rumah_sakit data_sakit[], int low, int mid, int high)
     {
         if(strcmp(data_sakit[i].pasien.nama_pasien, data_sakit[j].pasien.nama_pasien) <= 0)
         {
-        	temp3[k++] = data_sakit[i++];
+            temp3[k++] = data_sakit[i++];
         }
         else if(strcmp(data_sakit[i].pasien.nama_pasien, data_sakit[j].pasien.nama_pasien) >= 0)
         {
