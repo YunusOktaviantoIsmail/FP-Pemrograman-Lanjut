@@ -183,151 +183,8 @@ void update(){
 	}
 }
 
-//--------------------------------------- BINARY SEARCH ID ---------------------------------------//
-
-int binary_id(struct pasien data_pasien[], int awal, int akhir, int cari_pasien){
-	int tengah = (awal + akhir) / 2;
-	
-	if(awal>akhir){
-		return -1;
-	} else if(data_pasien[tengah].id_pasien == cari_pasien){
-		return tengah+1;
-	} else if(data_pasien[tengah].id_pasien < cari_pasien){
-		return binary_id(data_pasien, tengah+1, akhir, cari_pasien);
-	} else {
-		return binary_id(data_pasien, awal, tengah-1, cari_pasien);
-	}
-}
-
-//--------------------------------------- BINARY SEARCH NOMOR KAMAR ---------------------------------------//
-
-int binary_kamar(struct pasien data_pasien[], int awal, int akhir, int cari_kamar){
-	int tengah = (awal + akhir) / 2;
-	
-	if(awal>akhir){
-		return -1;
-	} else if(data_pasien[tengah].kamar.nomor_kamar == cari_kamar){
-		return tengah+1;
-	} else if(data_pasien[tengah].kamar.nomor_kamar < cari_kamar){
-		return binary_kamar(data_pasien, tengah+1, akhir, cari_kamar);
-	} else {
-		return binary_kamar(data_pasien, awal, tengah-1, cari_kamar);
-	}
-}
-
-//--------------------------------------- BINARY SEARCH NAMA PASIEN ---------------------------------------//
-
-char binary_nama(struct pasien data_pasien[], int awal, int akhir, char cari_nama[]){
-	int tengah = (awal + akhir) / 2;
-	
-	if(awal>akhir){
-		return -1;
-	} else if(strcmp(data_pasien[tengah].nama_pasien,cari_nama) == 0){
-		return tengah+1;
-	} else if(strcmp(data_pasien[tengah].nama_pasien,cari_nama) < 0){
-		return binary_nama(data_pasien, tengah+1, akhir, cari_nama);
-	} else {
-		return binary_nama(data_pasien, awal, tengah-1, cari_nama);
-	}
-}
-
-//--------------------------------------- TAMPILAN INPUTAN SEARCH ID ---------------------------------------//
-
-void id(){
-	int cari_pasien, hasil;
-	
-	printf("Masukan ID Pasien yang Dicari : ");
-	scanf("%d", &cari_pasien);
-	fflush(stdin);
-			
-	hasil = binary_id(data_pasien, 0, data_sekarang, cari_pasien);
-		
-	if  (hasil == -1){
-		printf("===== DATA TIDAK DITEMUKAN =====\n\n");
-    } else {
-    	printf("===== DATA DITEMUKAN =====\n");
-		printf("ID Pasien 		: %d\n", data_pasien[hasil-1].id_pasien);
-		printf("Nama Pasien 	: %s\n", data_pasien[hasil-1].nama_pasien);
-		printf("Jenis Penyakit 	: %s\n", data_pasien[hasil-1].jenis_penyakit);
-		printf("Jenis Kamar 	: %s\n", data_pasien[hasil-1].kamar.jenis_kamar);
-		printf("Nomor Kamar 	: %d\n", data_pasien[hasil-1].kamar.nomor_kamar);
-		printf("Tanggal Masuk 	: %d %s %d\n\n", data_pasien[hasil-1].tanggal_masuk.tanggal, data_pasien[hasil-1].tanggal_masuk.bulan, data_pasien[hasil-1].tanggal_masuk.tahun);
-    }
-}
-
-//--------------------------------------- TAMPILAN INPUTAN SEARCH NOMOR KAMAR ---------------------------------------//
-
-void kamar(){
-	int cari_kamar, hasil;
-	
-	printf("Masukan Nomor Kamar yang Dicari : ");
-	scanf("%d", &cari_kamar);
-	fflush(stdin);
-			
-	hasil = binary_kamar(data_pasien, 0, data_sekarang, cari_kamar);
-		
-	if  (hasil == -1){
-		printf("===== DATA TIDAK DITEMUKAN =====\n\n");
-    } else {
-    	printf("===== DATA DITEMUKAN =====\n");
-		printf("ID Pasien 		: %d\n", data_pasien[hasil-1].id_pasien);
-		printf("Nama Pasien 	: %s\n", data_pasien[hasil-1].nama_pasien);
-		printf("Jenis Penyakit 	: %s\n", data_pasien[hasil-1].jenis_penyakit);
-		printf("Jenis Kamar 	: %s\n", data_pasien[hasil-1].kamar.jenis_kamar);
-		printf("Nomor Kamar 	: %d\n", data_pasien[hasil-1].kamar.nomor_kamar);
-		printf("Tanggal Masuk 	: %d %s %d\n\n", data_pasien[hasil-1].tanggal_masuk.tanggal, data_pasien[hasil-1].tanggal_masuk.bulan, data_pasien[hasil-1].tanggal_masuk.tahun);
-    }
-}
-
-//--------------------------------------- TAMPILAN INPUTAN SEARCH NAMA PASIEN ---------------------------------------//
-
-void nama(){
-	char cari_nama[20];
-	int hasil;
-	
-	printf("Masukan Nama yang Dicari : ");
-	scanf("%s", &cari_nama);
-	fflush(stdin);
-	
-	hasil = binary_nama(data_pasien, 0, data_sekarang, cari_nama);
-	
-    if  (hasil == -1){
-		printf("===== DATA TIDAK DITEMUKAN =====\n\n");
-    } else {
-    	//printf("%d", i);
-    	printf("===== DATA DITEMUKAN =====\n");
-		printf("ID Pasien 	: %d\n", data_pasien[hasil].id_pasien);
-		printf("Nama Pasien 	: %s\n", data_pasien[hasil].nama_pasien);
-		printf("Jenis Penyakit 	: %s\n", data_pasien[hasil].jenis_penyakit);
-		printf("Jenis Kamar 	: %s\n", data_pasien[hasil].kamar.jenis_kamar);
-		printf("Nomor Kamar 	: %d\n", data_pasien[hasil].kamar.nomor_kamar);
-    	printf("Tanggal Masuk 	: %d %s %d\n\n", data_pasien[hasil].tanggal_masuk.tanggal, data_pasien[hasil].tanggal_masuk.bulan, data_pasien[hasil].tanggal_masuk.tahun);
-	}
-}
-
-//--------------------------------------- SUB MENU CARI DATA ---------------------------------------//
-
-void sub_cari(){
-	int cari;
-	
-	printf("Cari Data Berdasarkan : \n");
-	printf("1. ID Pasien\n");
-	printf("2. Nama Pasien\n");
-	printf("3. Nomor Kamar\n");
-	printf("Masukan Pilihan Anda : ");
-	scanf("%d", &cari);
-	fflush(stdin);
-	
-	if(cari == 1){
-		id(data_sekarang);
-	} else if(cari == 2){
-		nama(data_sekarang);	
-	} else if(cari == 3){
-		kamar(data_sekarang);
-	}
-}
-
 //--------------------------------------- MERGE SORT ID PASIEN ---------------------------------------//
+
 void merging_id(int low, int mid, int high)
 {
     int i = low;
@@ -380,6 +237,7 @@ void sort_id(int low, int high)
 };
 
 //--------------------------------------- MERGE SORT NAMA PASIEN ---------------------------------------//
+
 void merging_nama(int low, int mid, int high)
 {
     int i = low;
@@ -432,6 +290,7 @@ void sort_nama(int low, int high)
 };
 
 //--------------------------------------- MERGE SORT JENIS PENYAKIT PASIEN ---------------------------------------//
+
 void merging_jenis_penyakit(int low, int mid, int high)
 {
     int i = low;
@@ -484,6 +343,7 @@ void sort_jenis_penyakit(int low, int high)
 };
 
 //--------------------------------------- MERGE SORT JENIS KAMAR PASIEN ---------------------------------------//
+
 void merging_jenis_kamar(int low, int mid, int high)
 {
     int i = low;
@@ -536,6 +396,7 @@ void sort_jenis_kamar(int low, int high)
 };
 
 //--------------------------------------- MERGE SORT NOMOR KAMAR PASIEN ---------------------------------------//
+
 void merging_no_kamar(int low, int mid, int high)
 {
     int i = low;
@@ -588,6 +449,7 @@ void sort_no_kamar(int low, int high)
 };
 
 //--------------------------------------- MERGE SORT TANGGAL MASUK PASIEN ---------------------------------------//
+
 void merging_tanggal_masuk(int low, int mid, int high)
 {
     int i = low;
@@ -641,6 +503,7 @@ void sort_tanggal_masuk(int low, int high)
 
 
 //--------------------------------------- SUB MENU SORT DATA ---------------------------------------//
+
 void sub_sort(){
 	int pilihan;
 
@@ -686,6 +549,158 @@ void sub_sort(){
 		printf("Silahkan pilih kembali \n");
 	}
 }
+
+//--------------------------------------- BINARY SEARCH ID ---------------------------------------//
+
+int binary_id(struct pasien data_pasien[], int awal, int akhir, int cari_pasien){
+	int tengah = (awal + akhir) / 2;
+	
+	if(awal>akhir){
+		return -1;
+	} else if(data_pasien[tengah].id_pasien == cari_pasien){
+		return tengah+1;
+	} else if(data_pasien[tengah].id_pasien < cari_pasien){
+		return binary_id(data_pasien, tengah+1, akhir, cari_pasien);
+	} else {
+		return binary_id(data_pasien, awal, tengah-1, cari_pasien);
+	}
+}
+
+//--------------------------------------- BINARY SEARCH NOMOR KAMAR ---------------------------------------//
+
+int binary_kamar(struct pasien data_pasien[], int awal, int akhir, int cari_kamar){
+	int tengah = (awal + akhir) / 2;
+	
+	if(awal>akhir){
+		return -1;
+	} else if(data_pasien[tengah].kamar.nomor_kamar == cari_kamar){
+		return tengah+1;
+	} else if(data_pasien[tengah].kamar.nomor_kamar < cari_kamar){
+		return binary_kamar(data_pasien, tengah+1, akhir, cari_kamar);
+	} else {
+		return binary_kamar(data_pasien, awal, tengah-1, cari_kamar);
+	}
+}
+
+//--------------------------------------- BINARY SEARCH NAMA ---------------------------------------//
+
+int binary_nama(struct pasien data_pasien[], char cari[], int n) {
+    int t, hasil;
+    int k = n - 1;
+    int l = 0;
+  
+    while ( l <= k ) {
+        t = (l + k) / 2;
+        hasil = strcmp(data_pasien[t].nama_pasien, cari);
+
+        if (hasil == -1)
+            l = t + 1;
+        else if (hasil == 1)
+            k = t - 1;
+        else
+            return t;
+    }       
+    return -1;  
+}
+
+//--------------------------------------- TAMPILAN INPUTAN SEARCH ID ---------------------------------------//
+
+void id(){
+	int cari_pasien, hasil;
+	
+	printf("Masukan ID Pasien yang Dicari : ");
+	scanf("%d", &cari_pasien);
+	fflush(stdin);
+	
+	sort_id(0, data_sekarang-1);	
+	hasil = binary_id(data_pasien, 0, data_sekarang, cari_pasien);
+		
+	if  (hasil == -1){
+		printf("\n===== DATA TIDAK DITEMUKAN =====\n\n");
+    } else {
+    	printf("\n===== DATA DITEMUKAN =====\n");
+		printf("ID Pasien 		: %d\n", data_pasien[hasil-1].id_pasien);
+		printf("Nama Pasien 	: %s\n", data_pasien[hasil-1].nama_pasien);
+		printf("Jenis Penyakit 	: %s\n", data_pasien[hasil-1].jenis_penyakit);
+		printf("Jenis Kamar 	: %s\n", data_pasien[hasil-1].kamar.jenis_kamar);
+		printf("Nomor Kamar 	: %d\n", data_pasien[hasil-1].kamar.nomor_kamar);
+		printf("Tanggal Masuk 	: %d %s %d\n\n", data_pasien[hasil-1].tanggal_masuk.tanggal, data_pasien[hasil-1].tanggal_masuk.bulan, data_pasien[hasil-1].tanggal_masuk.tahun);
+    }
+}
+
+//--------------------------------------- TAMPILAN INPUTAN SEARCH NOMOR KAMAR ---------------------------------------//
+
+void kamar(){
+	int cari_kamar, hasil;
+	
+	printf("Masukan Nomor Kamar yang Dicari : ");
+	scanf("%d", &cari_kamar);
+	fflush(stdin);
+	
+	sort_no_kamar(0, data_sekarang-1);			
+	hasil = binary_kamar(data_pasien, 0, data_sekarang, cari_kamar);
+		
+	if  (hasil == -1){
+		printf("\n===== DATA TIDAK DITEMUKAN =====\n\n");
+    } else {
+    	printf("\n===== DATA DITEMUKAN =====\n");
+		printf("ID Pasien 		: %d\n", data_pasien[hasil-1].id_pasien);
+		printf("Nama Pasien 	: %s\n", data_pasien[hasil-1].nama_pasien);
+		printf("Jenis Penyakit 	: %s\n", data_pasien[hasil-1].jenis_penyakit);
+		printf("Jenis Kamar 	: %s\n", data_pasien[hasil-1].kamar.jenis_kamar);
+		printf("Nomor Kamar 	: %d\n", data_pasien[hasil-1].kamar.nomor_kamar);
+		printf("Tanggal Masuk 	: %d %s %d\n\n", data_pasien[hasil-1].tanggal_masuk.tanggal, data_pasien[hasil-1].tanggal_masuk.bulan, data_pasien[hasil-1].tanggal_masuk.tahun);
+    }
+}
+
+//--------------------------------------- TAMPILAN INPUTAN SEARCH NAMA PASIEN ---------------------------------------//
+
+void nama(){
+	char cari_nama[20];
+	int hasil;
+	
+	printf("Masukan Nama yang Dicari : ");
+	scanf("%s", &cari_nama);
+	fflush(stdin);
+	
+	sort_nama(0, data_sekarang-1);
+	hasil = binary_nama(data_pasien, cari_nama, data_sekarang);
+	
+    if  (hasil == -1){
+		printf("\n===== DATA TIDAK DITEMUKAN =====\n\n");
+    } else {
+    	printf("\n===== DATA DITEMUKAN =====\n");
+		printf("ID Pasien 	: %d\n", data_pasien[hasil].id_pasien);
+		printf("Nama Pasien 	: %s\n", data_pasien[hasil].nama_pasien);
+		printf("Jenis Penyakit 	: %s\n", data_pasien[hasil].jenis_penyakit);
+		printf("Jenis Kamar 	: %s\n", data_pasien[hasil].kamar.jenis_kamar);
+		printf("Nomor Kamar 	: %d\n", data_pasien[hasil].kamar.nomor_kamar);
+    	printf("Tanggal Masuk 	: %d %s %d\n\n", data_pasien[hasil].tanggal_masuk.tanggal, data_pasien[hasil].tanggal_masuk.bulan, data_pasien[hasil].tanggal_masuk.tahun);
+	}
+}
+
+//--------------------------------------- SUB MENU CARI DATA ---------------------------------------//
+
+void sub_cari(){
+	int cari;
+	
+	printf("Cari Data Berdasarkan : \n");
+	printf("1. ID Pasien\n");
+	printf("2. Nama Pasien\n");
+	printf("3. Nomor Kamar\n");
+	printf("Masukan Pilihan Anda : ");
+	scanf("%d", &cari);
+	fflush(stdin);
+	
+	if(cari == 1){
+		id(data_sekarang);
+	} else if(cari == 2){
+		nama(data_sekarang);	
+	} else if(cari == 3){
+		kamar(data_sekarang);
+	}
+}
+
 //////////////////////////////////////////////////////////
 
 void main() {
@@ -698,13 +713,13 @@ void main() {
 		system("cls");
 		fflush(stdin);
 
-		printf("Data sekarang sebanyak : %d \n", data_sekarang);
+		//printf("Data sekarang sebanyak : %d \n", data_sekarang);
 		printf("===== SISTEM INFORMASI RUMAH SAKIT =====\n");
 		printf("1. Daftarkan Pasien\n");
 		printf("2. Lihat Data Pasien\n");
 		printf("3. Update Data Pasien\n");
-		printf("4. Cari Data\n");
-		printf("5. Urutkan Data\n");
+		printf("4. Urutkan Data\n");
+		printf("5. Cari Data\n");
 		printf("6. [Keluar Program] \n");
 		printf("Masukan Pilihan Anda : ");
 		scanf("%d", &pilih);
@@ -732,13 +747,13 @@ void main() {
 		else if(pilih == 4)
 		{
 			system("cls");
-			sub_cari();
+			sub_sort();
 			system("pause");
 		}
 		else if(pilih == 5)
 		{
 			system("cls");
-			sub_sort();
+			sub_cari();
 			system("pause");
 		}
 		else if(pilih == 6)
