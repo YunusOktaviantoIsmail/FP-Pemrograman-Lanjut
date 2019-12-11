@@ -591,7 +591,7 @@ int binary_kamar(struct pasien data_pasien[], int awal, int akhir, int cari_kama
 	}
 }
 
-//--------------------------------------- BINARY NAMA ---------------------------------------//
+//--------------------------------------- BINARY SEARCH NAMA ---------------------------------------//
 
 char binary_nama2(struct pasien data_pasien[], int awal, int akhir, char cari_nama[]){
 	int tengah = (awal + akhir) / 2;
@@ -605,27 +605,6 @@ char binary_nama2(struct pasien data_pasien[], int awal, int akhir, char cari_na
 	} else {
 		return binary_nama2(data_pasien, awal, tengah-1, cari_nama);
 	}
-}
-
-//--------------------------------------- BINARY SEARCH NAMA ---------------------------------------//
-
-int binary_nama(struct pasien data_pasien[], char cari[], int n) {
-    int t, hasil;
-    int k = n - 1;
-    int l = 0;
-  
-    while ( l <= k ) {
-        t = (l + k) / 2;
-        hasil = strcmp(data_pasien[t].nama_pasien, cari);
-
-        if (hasil == -1)
-            l = t + 1;
-        else if (hasil == 1)
-            k = t - 1;
-        else
-            return t;
-    }       
-    return -1;  
 }
 
 //--------------------------------------- TAMPILAN INPUTAN SEARCH ID ---------------------------------------//
